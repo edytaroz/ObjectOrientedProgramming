@@ -18,6 +18,9 @@ public class World {
                 case "r":
                     direction[i] = Direction.RIGHT;
                     break;
+                default:
+                    System.out.println("Entered incorrect direction");
+                    return;
             }
         }
         run(direction);
