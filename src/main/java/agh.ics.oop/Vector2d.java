@@ -62,8 +62,7 @@ public class Vector2d {
         Vector2d vector_other = new Vector2d(-this.x, -this.y);
         return vector_other;
     }
-    //@Override
-
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;

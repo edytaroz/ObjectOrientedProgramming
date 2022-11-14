@@ -1,8 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="agh.ics.oop.AnimalTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2022-11-02T09:02:12" hostname="DESKTOP-M7EP362" time="0.061">
+<testsuite name="agh.ics.oop.AnimalTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-11-14T19:28:29" hostname="DESKTOP-M7EP362" time="0.063">
   <properties/>
-  <testcase name="moveTest()" classname="agh.ics.oop.AnimalTest" time="0.058"/>
+  <testcase name="moveTest()" classname="agh.ics.oop.AnimalTest" time="0.059"/>
   <testcase name="toStringTest()" classname="agh.ics.oop.AnimalTest" time="0.001"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="isATest()" classname="agh.ics.oop.AnimalTest" time="0.001"/>
+  <system-out><![CDATA[ y\x  0 1 2 3 4 5
+  6: -------------
+  5: | | | | | | |
+  4: | | | | | | |
+  3: | | | | | | |
+  2: | | | | | | |
+  1: | | | | | | |
+  0: | | | | | | |
+ -1: -------------
+
+ y\x  0 1 2 3 4 5
+  6: -------------
+  5: | | | | | | |
+  4: | | | | | | |
+  3: | | | | | | |
+  2: | | | | | | |
+  1: | | | | | | |
+  0: | | | | | | |
+ -1: -------------
+
+ y\x  0 1 2 3 4 5
+  6: -------------
+  5: | | | | | | |
+  4: | | | | | | |
+  3: | | | | | | |
+  2: | | | | | | |
+  1: | | | | | | |
+  0: | | | | | | |
+ -1: -------------
+
+ y\x  0 1 2 3 4 5
+  6: -------------
+  5: | | | | | | |
+  4: | | | | | | |
+  3: | | | | | | |
+  2: | | | | | | |
+  1: | | | | | | |
+  0: | | | | | | |
+ -1: -------------
+
+ y\x  0 1 2 3 4 5
+  6: -------------
+  5: | | | | | | |
+  4: | | | | | | |
+  3: | | | | | | |
+  2: | | | | | | |
+  1: | | | | | | |
+  0: | | | | | | |
+ -1: -------------
+
+ y\x  0 1 2 3 4 5
+  6: -------------
+  5: | | | | | | |
+  4: | | | | | | |
+  3: | | | | | | |
+  2: | | | | | | |
+  1: | | | | | | |
+  0: | | | | | | |
+ -1: -------------
+
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
