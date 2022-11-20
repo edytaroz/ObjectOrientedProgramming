@@ -37,7 +37,9 @@ public class SimulationEngine implements IEngine {
         try {
             Thread.sleep(500);
         }
-        catch(Exception e) {}
+        catch(Exception InterruptedException) {
+            System.out.println("Thread exception");
+        }
         for (int i = 0; i < moves.size(); i++) {
             animals.get(i%animals.size()).move(moves.get(i));
             t.setText(map.toString());
@@ -46,7 +48,9 @@ public class SimulationEngine implements IEngine {
             try {
                 Thread.sleep(500);
             }
-            catch(Exception e) {}
+            catch(Exception InterruptedException) {
+                System.out.println("Thread exception");
+            }
         }
     }
 }
