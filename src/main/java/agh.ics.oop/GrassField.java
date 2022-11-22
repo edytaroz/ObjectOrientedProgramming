@@ -38,10 +38,8 @@ public class GrassField extends AbstractWorldMap{
         }
     }
     public Object objectAt(Vector2d position) {
-        for (int i = 0; i < animals.size(); i++) {
-            if (animals.get(i).vector.equals(position)) {
-                return animals.get(i);
-            }
+        if (animals.containsKey(position)) {
+            return animals.get(position);
         }
         for (int i = 0; i < grassField.size(); i++) {
             if (grassField.get(i).getPosition().equals(position)) {
@@ -53,7 +51,7 @@ public class GrassField extends AbstractWorldMap{
     public boolean place(Animal animal) {
         if (canMoveTo(animal.vector)) {
             if (isOccupiedByGrass(animal.vector)) {
-                animals.add(animal);
+                animals.put(animal.vector,animal);
                 fillGrassField(1);
                 boolean flag = true;
                 int i = 0;
@@ -66,8 +64,9 @@ public class GrassField extends AbstractWorldMap{
                 }
             }
             else {
-                animals.add(animal);
+                animals.put(animal.vector,animal);
             }
+            animal.addObserver(this);
             return true;
         }
         return false;
@@ -100,18 +99,12 @@ public class GrassField extends AbstractWorldMap{
         }
         return false;
     }
+    @Override
     public boolean isOccupied(Vector2d position) {
-        for (int i = 0; i < animals.size(); i++) {
-            if (animals.get(i).vector.equals(position)) {
-                return true;
-            }
+        if (isOccupiedByGrass(position)) {
+            return true;
         }
-        for (int i = 0; i < grassField.size(); i++) {
-            if (grassField.get(i).positions.equals(position)) {
-                return true;
-            }
-        }
-        return false;
+        return super.isOccupied(position);
     }
     public String toString() {
         MapVisualizer map = new MapVisualizer(this);

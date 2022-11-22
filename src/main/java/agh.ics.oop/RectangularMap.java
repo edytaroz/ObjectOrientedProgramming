@@ -8,7 +8,6 @@ public class RectangularMap extends AbstractWorldMap {
     public RectangularMap(int width, int height) {
         this.lowerLeft = new Vector2d(0,0);
         this.upperRight = new Vector2d(width,height);
-        this.animals = new ArrayList<>();
     }
     public boolean canMoveTo(Vector2d position) {
         if (isOccupied(position)) {
@@ -21,25 +20,17 @@ public class RectangularMap extends AbstractWorldMap {
     }
     public boolean place(Animal animal) {
         if (canMoveTo(animal.vector)) {
-            animals.add(animal);
+            animals.put(animal.vector,animal);
+            animal.addObserver(this);
             return true;
         }
         return false;
     }
 
-    public boolean isOccupied(Vector2d position) {
-        for (int i = 0; i < animals.size(); i++) {
-            if (animals.get(i).vector.equals(position)) {
-                return true;
-            }
-        }
-        return false;
-    }
+
     public Object objectAt(Vector2d position) {
-        for (int i = 0; i < animals.size(); i++) {
-            if (animals.get(i).vector.equals(position)) {
-                return animals.get(i);
-            }
+        if (animals.containsKey(position)) {
+            return animals.get(position);
         }
         return null;
     }
