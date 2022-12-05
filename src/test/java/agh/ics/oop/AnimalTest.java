@@ -2,6 +2,7 @@ package agh.ics.oop;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class AnimalTest {
     @Test
@@ -17,7 +18,7 @@ public class AnimalTest {
     }
     @Test
     public void moveTest() {
-        String[] str = {"f","f","f","l","n","b","right"};
+        String[] str = {"f","f","f","l","b","right"};
         List<MoveDirection> list1 = OptionsParser.parse(str);
         Animal sloth = new Animal();
         sloth.move(list1.get(0));
@@ -32,5 +33,10 @@ public class AnimalTest {
         assertEquals(sloth.toString(),"W");
         sloth.move(list1.get(5));
         assertEquals(sloth.toString(),"N");
+    }
+    @Test
+    public void exceptionTest() {
+        String[] str1 = {"f","f","f","l","n","b","right"};
+        assertThrows(IllegalArgumentException.class,()->OptionsParser.parse(str1));
     }
 }

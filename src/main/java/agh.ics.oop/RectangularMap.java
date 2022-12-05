@@ -9,6 +9,17 @@ public class RectangularMap extends AbstractWorldMap {
         this.lowerLeft = new Vector2d(0,0);
         this.upperRight = new Vector2d(width,height);
     }
+
+    @Override
+    public Vector2d getLowerLeft() {
+        return null;
+    }
+
+    @Override
+    public Vector2d getUpperRight() {
+        return null;
+    }
+
     public boolean canMoveTo(Vector2d position) {
         if (isOccupied(position)) {
             return false;

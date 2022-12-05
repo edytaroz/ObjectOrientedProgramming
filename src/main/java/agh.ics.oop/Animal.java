@@ -52,57 +52,21 @@ public class Animal {
                 this.direction = this.direction.next();
                 break;
             case FORWARD:
-                if (this.direction == MapDirection.NORTH) {
-                    Vector2d vec = new Vector2d(this.vector.x, this.vector.y + 1);
-                    if (map.canMoveTo(vec)) {
-                        positionChanged(this.vector,vec);
-                        this.vector = vec;
-                    }
-                } else if (this.direction == MapDirection.SOUTH){
-                    Vector2d vec = new Vector2d(this.vector.x, this.vector.y - 1);
-                    if (map.canMoveTo(vec)) {
-                        positionChanged(this.vector,vec);
-                        this.vector = vec;
-                    }
-                } else if (this.direction == MapDirection.EAST){
-                    Vector2d vec = new Vector2d(this.vector.x + 1, this.vector.y);
-                    if (map.canMoveTo(vec)) {
-                        positionChanged(this.vector,vec);
-                        this.vector = vec;
-                    }
-                } else if (this.direction == MapDirection.WEST){
-                    Vector2d vec = new Vector2d(this.vector.x - 1, this.vector.y);
-                    if (map.canMoveTo(vec)) {
-                        positionChanged(this.vector,vec);
-                        this.vector = vec;
-                    }
-                }
-                break;
             case BACKWARD:
-                if (this.direction == MapDirection.NORTH) {
-                    Vector2d vec = new Vector2d(this.vector.x, this.vector.y - 1);
-                    if (map.canMoveTo(vec)) {
-                        positionChanged(this.vector,vec);
-                        this.vector = vec;
-                    }
-                } else if (this.direction == MapDirection.SOUTH) {
-                    Vector2d vec = new Vector2d(this.vector.x, this.vector.y + 1);
-                    if (map.canMoveTo(vec)) {
-                        positionChanged(this.vector,vec);
-                        this.vector = vec;
-                    }
-                } else if (this.direction == MapDirection.EAST){
-                    Vector2d vec = new Vector2d(this.vector.x - 1, this.vector.y);
-                    if (map.canMoveTo(vec)) {
-                        positionChanged(this.vector,vec);
-                        this.vector = vec;
-                    }
-                } else if (this.direction == MapDirection.WEST){
-                    Vector2d vec = new Vector2d(this.vector.x + 1, this.vector.y);
-                    if (map.canMoveTo(vec)) {
-                        positionChanged(this.vector,vec);
-                        this.vector = vec;
-                    }
+                int a = -1;
+                Vector2d vec;
+                if (direction == MoveDirection.FORWARD) {
+                    a = 1;
+                }
+                if (this.direction == MapDirection.SOUTH || this.direction == MapDirection.WEST) {a *= (-1);}
+                if (this.direction == MapDirection.NORTH || this.direction == MapDirection.SOUTH) {
+                    vec = new Vector2d(this.vector.x, this.vector.y + a);
+                } else {
+                    vec = new Vector2d(this.vector.x + a, this.vector.y);
+                }
+                if (map.canMoveTo(vec)) {
+                    positionChanged(this.vector,vec);
+                    this.vector = vec;
                 }
                 break;
         }

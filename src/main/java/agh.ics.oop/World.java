@@ -1,5 +1,8 @@
 package agh.ics.oop;
 
+import agh.ics.oop.gui.App;
+import javafx.application.Application;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,23 +10,27 @@ import java.util.List;
 public class World {
     public static void main(String[] args) {
         System.out.println("System started working");
-        //Direction[] direction = getData(args);
-        //run(direction);
-        //Animal sloth = new Animal();
-        //System.out.println(sloth);
         JFrame frame = new JFrame("Animals");
-        List<MoveDirection> directions = OptionsParser.parse(args);
-        //IWorldMap map = new RectangularMap(10, 5);
-        IWorldMap map = new GrassField(10);
-        System.out.println(map);
-        List<Vector2d> positions = new ArrayList<>();
-        positions.add(new Vector2d(2,2));
-        positions.add(new Vector2d(3,4));
-        IEngine engine = new SimulationEngine(directions, map, positions);
-        System.out.println(map);
-        engine.run();
-        System.out.println(map);
-        System.out.println("System finished working");
+        try {
+            //List<MoveDirection> directions = OptionsParser.parse(args);
+            Application.launch(App.class, args);
+            //IWorldMap map = new RectangularMap(10, 5);
+            /*
+            IWorldMap map = new GrassField(10);
+            System.out.println(map);
+            List<Vector2d> positions = new ArrayList<>();
+            positions.add(new Vector2d(2,2));
+            positions.add(new Vector2d(3,4));
+            IEngine engine = new SimulationEngine(directions, map, positions);
+            System.out.println(map);
+            engine.run();
+            System.out.println(map);
+            */
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println("System finished working");
+        }
     }
     public static void run(Direction[] direction) {
         for (int i = 0; i < direction.length; i++) {

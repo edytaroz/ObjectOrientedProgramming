@@ -1,19 +1,30 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class GrassField extends AbstractWorldMap{
     int numberOfGrassFields;
-    List<Grass> grassField= new ArrayList<>();
+    Map<Vector2d,Grass> grassField= new HashMap();
+    MapBoundary boundary = new MapBoundary();
+    Vector2d lowerLeft;
+    Vector2d upperRight;
+
 
     public GrassField(int grass) {
         this.lowerLeft = new Vector2d(0,0);
         this.upperRight = new Vector2d(0,0);
         this.numberOfGrassFields = grass;
         fillGrassField(this.numberOfGrassFields);
+        updateBoundary();
     }
+
+    public Vector2d getLowerLeft() {
+        return lowerLeft;
+    }
+    public Vector2d getUpperRight() {
+        return upperRight;
+    }
+
     private void fillGrassField(int numberOfGrass) {
         int x;
         int y;
@@ -25,40 +36,36 @@ public class GrassField extends AbstractWorldMap{
                 y = rand.nextInt((int) Math.sqrt(numberOfGrass * 10));
                 Vector2d vec = new Vector2d(x, y);
                 if (!isOccupied(vec)) {
-                    this.grassField.add(new Grass(vec));
-                    if (x > upperRight.x) {
-                        this.upperRight = new Vector2d(x, upperRight.y);
-                    }
-                    if (y > upperRight.y) {
-                        this.upperRight = new Vector2d(upperRight.x, y);
-                    }
+                    this.grassField.put(vec,new Grass(vec));
+                    boundary.addPosition(vec);
                     flag = false;
                 }
             }
         }
+        updateBoundary();
     }
     public Object objectAt(Vector2d position) {
         if (animals.containsKey(position)) {
             return animals.get(position);
         }
-        for (int i = 0; i < grassField.size(); i++) {
-            if (grassField.get(i).getPosition().equals(position)) {
-                return grassField.get(i);
-            }
+        if (grassField.containsKey(position)) {
+            return grassField.get(position);
         }
         return null;
     }
-    public boolean place(Animal animal) {
+    public boolean place(Animal animal) throws IllegalArgumentException {
         if (canMoveTo(animal.vector)) {
             if (isOccupiedByGrass(animal.vector)) {
                 animals.put(animal.vector,animal);
+                boundary.xAxis.remove(animal.vector);
+                boundary.yAxis.remove(animal.vector);
                 fillGrassField(1);
                 boolean flag = true;
                 int i = 0;
                 while (i < this.grassField.size() || flag) {
-                    if (animal.vector.equals(this.grassField.get(i).positions)) {
+                    if (this.grassField.containsKey(animal.vector)) {
                         flag = false;
-                        this.grassField.remove(this.grassField.get(i));
+                        this.grassField.remove(animal.vector);
                     }
                     i++;
                 }
@@ -66,12 +73,16 @@ public class GrassField extends AbstractWorldMap{
             else {
                 animals.put(animal.vector,animal);
             }
+            animal.addObserver(boundary);
             animal.addObserver(this);
+            boundary.addPosition(animal.vector);
             return true;
         }
-        return false;
+        else {
+            throw new IllegalArgumentException(animal.vector + " is not legal move specification");
+        }
     }
-    public boolean canMoveTo(Vector2d position) {
+    public boolean canMoveTo(Vector2d position){
         if (isOccupied(position) && !isOccupiedByGrass(position)) {
             return false;
         }
@@ -80,20 +91,29 @@ public class GrassField extends AbstractWorldMap{
             boolean flag = true;
             int i = 0;
             while (i < this.grassField.size() || flag) {
-                if (position.equals(this.grassField.get(i).positions)) {
+                if (this.grassField.containsKey(position)) {
                     flag = false;
-                    this.grassField.remove(this.grassField.get(i));
+                    this.grassField.remove(position);
                 }
                 i++;
             }
         }
-        this.lowerLeft = new Vector2d(Math.min(position.x, this.lowerLeft.x),Math.min(position.y, this.lowerLeft.y));
-        this.upperRight = new Vector2d(Math.max(position.x, this.upperRight.x),Math.max(position.y, this.upperRight.y));
         return true;
     }
+    void updateBoundary() {
+        this.lowerLeft = boundary.getLowerLeft();
+        this.upperRight = boundary.getUpperRight();
+    }
+
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
+        super.positionChanged(oldPosition, newPosition);
+        updateBoundary();
+    }
+
     public boolean isOccupiedByGrass(Vector2d position) {
         for (int i = 0; i < grassField.size(); i++) {
-            if (grassField.get(i).positions.equals(position)) {
+            if (grassField.containsKey(position)) {
                 return true;
             }
         }
