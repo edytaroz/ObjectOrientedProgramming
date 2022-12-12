@@ -8,8 +8,8 @@ public class OptionsParser {
         List<MoveDirection> lists = new ArrayList<>();
         for (int i = 0; i < str.length; i++) {
             switch(str[i]) {
-                case "f":
-                case "forward":
+                //case "f":
+                case "f","forward":
                     lists.add(MoveDirection.FORWARD);
                     break;
                 case "b":
@@ -34,8 +34,8 @@ public class OptionsParser {
         List<MoveDirection> lists = new ArrayList<>();
         for (int i = 0; i < str.size(); i++) {
             switch(str.get(i)) {
-                case "f":
-                case "forward":
+                //case "f":
+                case "f","forward":
                     lists.add(MoveDirection.FORWARD);
                     break;
                 case "b":

@@ -1,10 +1,13 @@
 package agh.ics.oop;
 
+import javafx.scene.image.Image;
+import agh.ics.oop.gui.App;
 import javax.swing.*;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal {
+public class Animal implements IMapElement {
     public MapDirection direction;
     protected List<IPositionChangeObserver> observers = new ArrayList<>();
     public Vector2d vector;
@@ -22,6 +25,20 @@ public class Animal {
     }
     public String toString() {
         return this.direction.toString();
+    }
+    public Vector2d getPosition() {return this.vector;}
+    public String getImagePath() {
+        switch (this.direction) {
+            case EAST:
+                return "src/main/resources/left.png";
+            case WEST:
+                return "src/main/resources/right.png";
+            case NORTH:
+                return "src/main/resources/down.png";
+            case SOUTH:
+                return "src/main/resources/up.png";
+        }
+        return "";
     }
     public boolean isAT(Vector2d position) {
         return this.vector.equals(position);

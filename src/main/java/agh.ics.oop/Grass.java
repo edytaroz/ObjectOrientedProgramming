@@ -1,17 +1,15 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Grass {
-    public Vector2d positions;
+public class Grass implements IMapElement {
+    public Vector2d vector;
     public Grass(Vector2d position) {
-        this.positions = position;
+        this.vector = position;
     }
-    Vector2d getPosition() {
-        return this.positions;
+    public Vector2d getPosition() {
+        return this.vector;
     }
-    @Override
+    public String getImagePath() {return "src/main/resources/grass.png";}
+
     public String toString() {
         return "*";
     }
